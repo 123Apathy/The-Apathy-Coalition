@@ -51,6 +51,7 @@ sync_runtime_file /mnt/d/Popebot/lib/chat/components/manual-page.js "$PROJECT_PA
 sync_runtime_file /mnt/d/Popebot/lib/chat/components/page-layout.js "$PROJECT_PATH/node_modules/thepopebot/lib/chat/components/page-layout.js"
 sync_runtime_file /mnt/d/Popebot/lib/chat/components/settings-layout.js "$PROJECT_PATH/node_modules/thepopebot/lib/chat/components/settings-layout.js"
 sync_runtime_file /mnt/d/Popebot/lib/chat/components/settings-system-page.js "$PROJECT_PATH/node_modules/thepopebot/lib/chat/components/settings-system-page.js"
+sync_runtime_file /mnt/d/Popebot/lib/chat/components/triggers-page.js "$PROJECT_PATH/node_modules/thepopebot/lib/chat/components/triggers-page.js"
 sync_runtime_file /mnt/d/Popebot/lib/chat/components/upgrade-dialog.js "$PROJECT_PATH/node_modules/thepopebot/lib/chat/components/upgrade-dialog.js"
 sync_runtime_file /mnt/d/Popebot/lib/chat/components/workspace-conversation-page.js "$PROJECT_PATH/node_modules/thepopebot/lib/chat/components/workspace-conversation-page.js"
 sync_runtime_file /mnt/d/Popebot/lib/chat/components/workspace-detail-page.js "$PROJECT_PATH/node_modules/thepopebot/lib/chat/components/workspace-detail-page.js"
