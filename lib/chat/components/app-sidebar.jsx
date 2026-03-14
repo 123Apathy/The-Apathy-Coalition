@@ -118,7 +118,7 @@ export function AppSidebar({ user }) {
                   <TooltipTrigger asChild>
                     <SidebarMenuButton
                       href="/workspaces"
-                      isActive={pathname === '/workspaces'}
+                      isActive={pathname === '/workspaces' || pathname.startsWith('/workspaces/')}
                       className={collapsed ? 'justify-center' : ''}
                       onClick={(e) => {
                         e.preventDefault();

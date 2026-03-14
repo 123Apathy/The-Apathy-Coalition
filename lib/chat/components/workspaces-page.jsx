@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import Link from 'next/link';
 import { createWorkspaceRecord, getWorkspaceSummaries, getSystemInstallStatus } from '../actions.js';
 import { PageLayout } from './page-layout.js';
 
@@ -117,7 +118,7 @@ export function WorkspacesPage({ session }) {
             {items.length === 0 ? (
               <p className="text-sm text-muted-foreground">No workspaces yet.</p>
             ) : items.map((workspace) => (
-              <div key={workspace.id} className="rounded-lg border border-border/70 p-4">
+              <Link key={workspace.id} href={`/workspaces/${workspace.id}`} className="block rounded-lg border border-border/70 p-4 hover:bg-muted/40">
                 <div className="flex items-start justify-between gap-4">
                   <div>
                     <div className="flex items-center gap-2">
@@ -132,7 +133,7 @@ export function WorkspacesPage({ session }) {
                     {workspace.role}
                   </div>
                 </div>
-              </div>
+              </Link>
             ))}
           </div>
         </div>
