@@ -8,8 +8,11 @@ import {
   createWorkspaceProjectRecord,
   createWorkspaceTaskRecord,
   getWorkspaceDetail,
+  updateWorkspaceTaskStatusRecord,
 } from '../actions.js';
 import { PageLayout } from './page-layout.js';
+
+const TASK_STATUS_OPTIONS = ['draft', 'planned', 'active', 'blocked', 'done'];
 
 function Section({ title, description, children, action }) {
   return (
@@ -17,7 +20,7 @@ function Section({ title, description, children, action }) {
       <div className="flex items-start justify-between gap-4">
         <div>
           <h2 className="text-base font-semibold">{title}</h2>
-          {description && <p className="mt-1 text-sm text-muted-foreground">{description}</p>}
+          {description ? <p className="mt-1 text-sm text-muted-foreground">{description}</p> : null}
         </div>
         {action}
       </div>
@@ -32,6 +35,7 @@ function Empty({ text }) {
 
 export function WorkspaceDetailPage({ session, workspaceId }) {
   const [state, setState] = useState(null);
+  const [error, setError] = useState('');
   const [inviteEmail, setInviteEmail] = useState('');
   const [inviteRole, setInviteRole] = useState('collaborator');
   const [projectName, setProjectName] = useState('');
@@ -46,13 +50,15 @@ export function WorkspaceDetailPage({ session, workspaceId }) {
   };
 
   useEffect(() => {
-    load().catch(() => {});
+    load().catch((err) => {
+      setError(err?.message || 'Failed to load workspace.');
+    });
   }, [workspaceId]);
 
   if (!state) {
     return (
       <PageLayout session={session}>
-        <div className="py-10 text-sm text-muted-foreground">Loading workspace…</div>
+        <div className="py-10 text-sm text-muted-foreground">Loading workspace...</div>
       </PageLayout>
     );
   }
@@ -70,48 +76,78 @@ export function WorkspaceDetailPage({ session, workspaceId }) {
 
   const createInvite = async (e) => {
     e.preventDefault();
-    const invite = await createWorkspaceInviteRecord(workspaceId, {
-      email: inviteEmail.trim() || null,
-      role: inviteRole,
-    });
-    setInviteEmail('');
-    await navigator.clipboard.writeText(invite.inviteUrl);
-    setCopiedInvite(invite.inviteUrl);
-    setTimeout(() => setCopiedInvite(''), 4000);
-    await load();
+    setError('');
+    try {
+      const invite = await createWorkspaceInviteRecord(workspaceId, {
+        email: inviteEmail.trim() || null,
+        role: inviteRole,
+      });
+      setInviteEmail('');
+      await navigator.clipboard.writeText(invite.inviteUrl);
+      setCopiedInvite(invite.inviteUrl);
+      setTimeout(() => setCopiedInvite(''), 4000);
+      await load();
+    } catch (err) {
+      setError(err?.message || 'Failed to create invite.');
+    }
   };
 
   const createProject = async (e) => {
     e.preventDefault();
     if (!projectName.trim()) return;
-    await createWorkspaceProjectRecord(workspaceId, {
-      name: projectName.trim(),
-      repository: projectRepo.trim(),
-    });
-    setProjectName('');
-    setProjectRepo('');
-    await load();
+    setError('');
+    try {
+      await createWorkspaceProjectRecord(workspaceId, {
+        name: projectName.trim(),
+        repository: projectRepo.trim(),
+      });
+      setProjectName('');
+      setProjectRepo('');
+      await load();
+    } catch (err) {
+      setError(err?.message || 'Failed to create project.');
+    }
   };
 
   const createTask = async (e) => {
     e.preventDefault();
     if (!taskTitle.trim()) return;
-    await createWorkspaceTaskRecord(workspaceId, {
-      title: taskTitle.trim(),
-      status: 'draft',
-    });
-    setTaskTitle('');
-    await load();
+    setError('');
+    try {
+      await createWorkspaceTaskRecord(workspaceId, {
+        title: taskTitle.trim(),
+        status: 'draft',
+      });
+      setTaskTitle('');
+      await load();
+    } catch (err) {
+      setError(err?.message || 'Failed to create task.');
+    }
   };
 
   const createConversation = async (e) => {
     e.preventDefault();
     if (!conversationTitle.trim()) return;
-    await createWorkspaceConversationRecord(workspaceId, {
-      title: conversationTitle.trim(),
-    });
-    setConversationTitle('');
-    await load();
+    setError('');
+    try {
+      await createWorkspaceConversationRecord(workspaceId, {
+        title: conversationTitle.trim(),
+      });
+      setConversationTitle('');
+      await load();
+    } catch (err) {
+      setError(err?.message || 'Failed to create conversation.');
+    }
+  };
+
+  const updateTaskStatus = async (taskId, status) => {
+    setError('');
+    try {
+      await updateWorkspaceTaskStatusRecord(workspaceId, taskId, status);
+      await load();
+    } catch (err) {
+      setError(err?.message || 'Failed to update task.');
+    }
   };
 
   return (
@@ -122,10 +158,10 @@ export function WorkspaceDetailPage({ session, workspaceId }) {
             <span className="mt-1 inline-block h-4 w-4 rounded-full" style={{ backgroundColor: workspace.color || '#7c8bff' }} />
             <div>
               <h1 className="text-2xl font-semibold">{workspace.name}</h1>
-              {workspace.description && (
+              {workspace.description ? (
                 <p className="mt-1 text-sm text-muted-foreground">{workspace.description}</p>
-              )}
-              <div className="mt-3 flex flex-wrap items-center gap-3 text-xs text-muted-foreground uppercase tracking-wide">
+              ) : null}
+              <div className="mt-3 flex flex-wrap items-center gap-3 text-xs uppercase tracking-wide text-muted-foreground">
                 <span>Your role: {workspace.role}</span>
                 <span>Members: {members.length}</span>
                 <span>Projects: {projects.length}</span>
@@ -133,6 +169,7 @@ export function WorkspaceDetailPage({ session, workspaceId }) {
               </div>
             </div>
           </div>
+          {error ? <p className="mt-4 text-sm text-destructive">{error}</p> : null}
         </div>
 
         <Section
@@ -146,8 +183,9 @@ export function WorkspaceDetailPage({ session, workspaceId }) {
               <div className="space-y-2">
                 {members.length === 0 ? <Empty text="No members yet." /> : members.map((member) => (
                   <div key={member.id} className="rounded-lg border border-border/70 px-3 py-2 text-sm">
-                    <div className="font-medium">{member.userId}</div>
-                    <div className="text-xs text-muted-foreground uppercase tracking-wide">{member.role}</div>
+                    <div className="font-medium">{member.displayName}</div>
+                    {member.email ? <div className="text-xs text-muted-foreground">{member.email}</div> : null}
+                    <div className="text-xs uppercase tracking-wide text-muted-foreground">{member.role}</div>
                   </div>
                 ))}
               </div>
@@ -183,8 +221,8 @@ export function WorkspaceDetailPage({ session, workspaceId }) {
                 {invites.length === 0 ? <Empty text="No invites yet." /> : invites.map((invite) => (
                   <div key={invite.id} className="rounded-lg border border-border/70 px-3 py-2 text-sm">
                     <div className="font-medium">{invite.email || 'Invite link only'}</div>
-                    <div className="text-xs text-muted-foreground uppercase tracking-wide">
-                      {invite.role} · {invite.status}
+                    <div className="text-xs uppercase tracking-wide text-muted-foreground">
+                      {invite.role} - {invite.status}
                     </div>
                   </div>
                 ))}
@@ -237,8 +275,23 @@ export function WorkspaceDetailPage({ session, workspaceId }) {
             <div className="mt-4 space-y-2">
               {tasks.length === 0 ? <Empty text="No tasks yet." /> : tasks.map((task) => (
                 <div key={task.id} className="rounded-lg border border-border/70 px-3 py-2 text-sm">
-                  <div className="font-medium">{task.title}</div>
-                  <div className="text-xs text-muted-foreground uppercase tracking-wide">{task.status}</div>
+                  <div className="flex items-center justify-between gap-3">
+                    <div>
+                      <div className="font-medium">{task.title}</div>
+                      <div className="text-xs uppercase tracking-wide text-muted-foreground">{task.status}</div>
+                    </div>
+                    <select
+                      value={task.status}
+                      onChange={(e) => updateTaskStatus(task.id, e.target.value)}
+                      className="rounded-md border border-input bg-background px-2 py-1 text-xs"
+                    >
+                      {TASK_STATUS_OPTIONS.map((status) => (
+                        <option key={status} value={status}>
+                          {status}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
                 </div>
               ))}
             </div>
@@ -246,7 +299,7 @@ export function WorkspaceDetailPage({ session, workspaceId }) {
         </div>
 
         <div className="grid gap-6 lg:grid-cols-2">
-          <Section title="Shared conversations" description="Conversation scaffolding for the next phase of shared chat.">
+          <Section title="Shared conversations" description="Shared threads for planning and collaboration inside the workspace.">
             <form onSubmit={createConversation} className="mb-4 space-y-3">
               <input
                 value={conversationTitle}
@@ -279,7 +332,7 @@ export function WorkspaceDetailPage({ session, workspaceId }) {
                 {memory.map((entry) => (
                   <div key={entry.id} className="rounded-lg border border-border/70 px-3 py-2 text-sm">
                     <div className="font-medium">{entry.title}</div>
-                    <div className="text-xs text-muted-foreground uppercase tracking-wide">{entry.type}</div>
+                    <div className="text-xs uppercase tracking-wide text-muted-foreground">{entry.type}</div>
                   </div>
                 ))}
               </div>
