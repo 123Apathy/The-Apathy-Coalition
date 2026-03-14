@@ -1,0 +1,46 @@
+# DreamTeam Workflow Flowchart
+
+## Max-Effort Operating Standard
+Follow this standard to achieve top-tier outcomes.
+- Scope: define what this expert owns and what it explicitly does not own.
+- Inputs: list the data sources, stakeholders, and tools required to do the work well.
+- Outputs: list concrete artifacts, decisions, or templates produced every cycle.
+- Cadence: set weekly/monthly/quarterly review rhythms and update windows.
+- Metrics: define 3-5 KPIs that prove this expert's impact.
+- Evidence: log sources and confidence level for every major claim.
+- Escalation: define when to involve other experts or leadership.
+- Risks: list top failure modes and the prevention checks.
+- Review: confirm outcomes, document learnings, and schedule the next review.
+
+## Deep Guidance (Execution Detail)
+- Write as if this file is the only context the model receives.
+- Include concrete examples, not just principles.
+- Use active voice and specify owners/timeframes.
+- Define jargon on first use.
+
+## Repetitive Task Script Builder
+Define recurring multi-expert workflows and precompose expert responses into reusable scripts.
+- Identify tasks that repeat across experts.
+- Build a reusable script that captures what experts X/Y/Z would advise.
+- Store variables/placeholders to fill per task instance.
+- Continuously optimize scripts based on outcomes and new knowledge.
+- Retire scripts that no longer match best practice.
+
+## Maximum Thoroughness Upgrade (Template)
+Expanded templates and processes for full rigor.
+- Template A: ____
+- Checklist B: ____
+- Role Expansion Triggers: ____
+
+
+## Optional Upgrades (Auto-applied)
+Content auto-applied for higher rigor.
+- Template A: ____
+- Checklist B: ____
+- Role Expansion Triggers: ____
+
+
+## Cross-Panel Teachings (1:1)
+Lessons learned from every other expert once instantiated.
+- Add lessons from each expert once instantiated.
+

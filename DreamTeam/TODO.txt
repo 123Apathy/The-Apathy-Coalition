@@ -1,0 +1,41 @@
+# DreamTeam Improvement Backlog
+
+## Required Examples (Priority)
+- Add 1-2 concrete, domain-specific examples to each expert template section.
+- Add a real "day-in-the-life" scenario per role to show how outputs are used.
+- Include at least one worked example for templates (e.g., filled Scorecard Template).
+- Add sample scripts in the Script Builder section (with variables + filled example).
+
+## Optimization Backlog (To Push Beyond 90)
+- Replace placeholder bullets (`- `) with explicit, role-specific content.
+- Add measurable KPIs per role (numbers + timeframe).
+- Reduce redundancy across sections while keeping clarity.
+- Add a "Failure Modes" subsection with prevention steps.
+- Add a "Decision Gate" or "Stop/Go" checklist per expert.
+- Add a "Tooling & Data Sources" subsection per expert.
+- Add role-specific glossary terms at the bottom.
+- Add an example "weekly report" output for 3-5 experts.
+- Add verification steps for any claims or metrics.
+- Add a scoring rubric for evaluation of outputs.
+- Add escalation triggers for conflicts across experts.
+- Add a "first 30 days" onboarding checklist for each expert.
+
+## Notes
+- Goal: 90+ readiness for GPT project, then push to 95-100 by adding real examples and tightening outputs.
+
+## Expert Panel Feedback (Consensus)
+- Consensus rating: 78/100 today; target 95+ after examples + KPI specificity.
+- Add real, filled examples for every template section (not placeholders).
+- Add explicit owner + timeframe to each priority and output.
+- Add data sources/tooling per expert so prompts don't guess context.
+- Add decision gates and failure modes to make actions safer.
+- Add "success metrics" with numeric targets per expert.
+- Add a small script library with 3-5 real scripts.
+- Add verification steps for all metrics/claims.
+
+## 100-Point Blockers (Requires Live Validation)
+- Collect real-world user data and outcomes to replace theoretical guidance.
+- Continuously update templates to match market/regulatory drift.
+- Add execution feedback loops (post-launch learnings and retros).
+- Capture edge cases and unknowns discovered in production.
+- Integrate live operational data for higher-confidence decisions.
