@@ -1,7 +1,9 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import Link from 'next/link';
 import {
+  createWorkspaceConversationRecord,
   createWorkspaceInviteRecord,
   createWorkspaceProjectRecord,
   createWorkspaceTaskRecord,
@@ -35,6 +37,7 @@ export function WorkspaceDetailPage({ session, workspaceId }) {
   const [projectName, setProjectName] = useState('');
   const [projectRepo, setProjectRepo] = useState('');
   const [taskTitle, setTaskTitle] = useState('');
+  const [conversationTitle, setConversationTitle] = useState('');
   const [copiedInvite, setCopiedInvite] = useState('');
 
   const load = async () => {
@@ -98,6 +101,16 @@ export function WorkspaceDetailPage({ session, workspaceId }) {
       status: 'draft',
     });
     setTaskTitle('');
+    await load();
+  };
+
+  const createConversation = async (e) => {
+    e.preventDefault();
+    if (!conversationTitle.trim()) return;
+    await createWorkspaceConversationRecord(workspaceId, {
+      title: conversationTitle.trim(),
+    });
+    setConversationTitle('');
     await load();
   };
 
@@ -234,12 +247,27 @@ export function WorkspaceDetailPage({ session, workspaceId }) {
 
         <div className="grid gap-6 lg:grid-cols-2">
           <Section title="Shared conversations" description="Conversation scaffolding for the next phase of shared chat.">
+            <form onSubmit={createConversation} className="mb-4 space-y-3">
+              <input
+                value={conversationTitle}
+                onChange={(e) => setConversationTitle(e.target.value)}
+                placeholder="Conversation title"
+                className="w-full rounded-md border border-input bg-background px-3 py-2 text-sm"
+              />
+              <button className="rounded-md bg-foreground px-3 py-2 text-sm font-medium text-background hover:bg-foreground/90">
+                Create conversation
+              </button>
+            </form>
             {conversations.length === 0 ? <Empty text="No shared conversations yet." /> : (
               <div className="space-y-2">
                 {conversations.map((conversation) => (
-                  <div key={conversation.id} className="rounded-lg border border-border/70 px-3 py-2 text-sm">
+                  <Link
+                    key={conversation.id}
+                    href={`/workspaces/${workspaceId}/conversations/${conversation.id}`}
+                    className="block rounded-lg border border-border/70 px-3 py-2 text-sm hover:bg-muted/40"
+                  >
                     <div className="font-medium">{conversation.title}</div>
-                  </div>
+                  </Link>
                 ))}
               </div>
             )}
