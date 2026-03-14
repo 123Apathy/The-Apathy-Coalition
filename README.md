@@ -56,6 +56,15 @@ In the standard Docker Compose deployment, container control now flows through a
 - Local app name: `The Apathy Coalition`
 - Package/runtime lineage: still built on the `thepopebot` package and scaffold model internally while the product branding shifts to The Apathy Coalition
 
+## Fresh User Repo Policy
+
+This repository should represent the product source for a new install, not one person's live machine state.
+
+- Included: app source, templates, docs, setup scripts, workflow definitions, and empty/default seed files
+- Excluded: chats, login sessions, local secrets, runtime logs, pulled model state, machine-specific caches, and personal workspace outputs
+
+Today this repo is much closer to that goal than before, but it is still source code rather than a finished one-click installer for Windows/macOS.
+
 ---
 
 ## Get Started
