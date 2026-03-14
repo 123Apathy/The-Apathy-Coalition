@@ -14,6 +14,7 @@ export function PageLayout({ session, children, contentClassName }) {
     [
       '/',
       '/chats',
+      '/workspaces',
       '/settings',
       '/settings/personalization',
       '/settings/memory',

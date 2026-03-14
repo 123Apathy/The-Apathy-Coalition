@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { useRouter, usePathname } from 'next/navigation';
-import { CirclePlusIcon, PanelLeftIcon, MessageIcon, ClusterIcon, RunnersIcon, ArrowUpCircleIcon, LifeBuoyIcon, GitPullRequestIcon } from './icons.js';
+import { CirclePlusIcon, PanelLeftIcon, MessageIcon, ClusterIcon, RunnersIcon, ArrowUpCircleIcon, LifeBuoyIcon, GitPullRequestIcon, UserIcon } from './icons.js';
 import { getPullRequestCount, getAppVersion } from '../actions.js';
 import { ApathyLogo } from './apathy-logo.js';
 import { SidebarHistory } from './sidebar-history.js';
@@ -113,6 +113,26 @@ export function AppSidebar({ user }) {
         {!collapsed && (
           <SidebarContent>
             <SidebarMenu>
+              <SidebarMenuItem>
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <SidebarMenuButton
+                      href="/workspaces"
+                      isActive={pathname === '/workspaces'}
+                      className={collapsed ? 'justify-center' : ''}
+                      onClick={(e) => {
+                        e.preventDefault();
+                        navigate('/workspaces');
+                      }}
+                    >
+                      <UserIcon size={16} />
+                      {!collapsed && <span>Workspaces</span>}
+                    </SidebarMenuButton>
+                  </TooltipTrigger>
+                  {collapsed && <TooltipContent side="right">Workspaces</TooltipContent>}
+                </Tooltip>
+              </SidebarMenuItem>
+
               <SidebarMenuItem>
                 <Tooltip>
                   <TooltipTrigger asChild>
