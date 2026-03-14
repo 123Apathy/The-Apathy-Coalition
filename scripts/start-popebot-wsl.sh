@@ -46,6 +46,7 @@ sync_runtime_file /mnt/d/Popebot/lib/chat/components/ui/dropdown-menu.js "$PROJE
 sync_runtime_file /mnt/d/Popebot/lib/chat/components/chat-header.js "$PROJECT_PATH/node_modules/thepopebot/lib/chat/components/chat-header.js"
 sync_runtime_file /mnt/d/Popebot/lib/chat/components/apathy-logo.js "$PROJECT_PATH/node_modules/thepopebot/lib/chat/components/apathy-logo.js"
 sync_runtime_file /mnt/d/Popebot/lib/chat/components/app-sidebar.js "$PROJECT_PATH/node_modules/thepopebot/lib/chat/components/app-sidebar.js"
+sync_runtime_file /mnt/d/Popebot/lib/chat/components/crons-page.js "$PROJECT_PATH/node_modules/thepopebot/lib/chat/components/crons-page.js"
 sync_runtime_file /mnt/d/Popebot/lib/chat/components/manual-page.js "$PROJECT_PATH/node_modules/thepopebot/lib/chat/components/manual-page.js"
 sync_runtime_file /mnt/d/Popebot/lib/chat/components/page-layout.js "$PROJECT_PATH/node_modules/thepopebot/lib/chat/components/page-layout.js"
 sync_runtime_file /mnt/d/Popebot/lib/chat/components/settings-layout.js "$PROJECT_PATH/node_modules/thepopebot/lib/chat/components/settings-layout.js"
