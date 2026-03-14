@@ -1,10 +1,10 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
 import { ClusterIcon, TrashIcon, SearchIcon, PlusIcon, PencilIcon } from '../../chat/components/icons.js';
 import { getClusters, deleteCluster, createCluster } from '../actions.js';
 import { ConfirmDialog } from '../../chat/components/ui/confirm-dialog.js';
-import { cn } from '../../chat/utils.js';
 
 function groupByDate(items) {
   const now = new Date();
@@ -154,14 +154,22 @@ export function ClustersPage() {
 }
 
 function ClusterRow({ cluster, onDelete }) {
+  const router = useRouter();
   const [confirmDelete, setConfirmDelete] = useState(false);
 
   return (
     <>
-      <a
-        href={`/cluster/${cluster.id}/console`}
+      <div
+        role="button"
+        tabIndex={0}
         className="relative group flex items-center gap-3 px-3 py-3 cursor-pointer hover:bg-muted/50 rounded-md"
-        style={{ textDecoration: 'inherit', color: 'inherit' }}
+        onClick={() => router.push(`/cluster/${cluster.id}/console`)}
+        onKeyDown={(e) => {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            router.push(`/cluster/${cluster.id}/console`);
+          }
+        }}
       >
         <ClusterIcon size={16} />
         <div className="flex-1 min-w-0">
@@ -173,15 +181,19 @@ function ClusterRow({ cluster, onDelete }) {
           </span>
         </div>
         <div className="shrink-0 flex items-center gap-1">
-          <a
-            href={`/cluster/${cluster.id}`}
+          <button
+            type="button"
             className="rounded-md p-1.5 text-muted-foreground hover:text-foreground hover:bg-muted"
             aria-label="Edit cluster"
-            onClick={(e) => e.stopPropagation()}
+            onClick={(e) => {
+              e.stopPropagation();
+              router.push(`/cluster/${cluster.id}`);
+            }}
           >
             <PencilIcon size={16} />
-          </a>
+          </button>
           <button
+            type="button"
             className="rounded-md p-1.5 text-muted-foreground hover:text-destructive hover:bg-muted"
             aria-label="Delete"
             onClick={(e) => {
@@ -193,7 +205,7 @@ function ClusterRow({ cluster, onDelete }) {
             <TrashIcon size={16} />
           </button>
         </div>
-      </a>
+      </div>
       <ConfirmDialog
         open={confirmDelete}
         title="Delete cluster?"

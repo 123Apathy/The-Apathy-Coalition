@@ -41,6 +41,7 @@ sync_runtime_file /mnt/d/Popebot/lib/ai/model.js "$PROJECT_PATH/node_modules/the
 sync_runtime_file /mnt/d/Popebot/lib/ai/model-registry.js "$PROJECT_PATH/node_modules/thepopebot/lib/ai/model-registry.js"
 sync_runtime_file /mnt/d/Popebot/lib/ai/agent.js "$PROJECT_PATH/node_modules/thepopebot/lib/ai/agent.js"
 sync_runtime_file /mnt/d/Popebot/lib/chat/actions.js "$PROJECT_PATH/node_modules/thepopebot/lib/chat/actions.js"
+sync_runtime_file /mnt/d/Popebot/lib/cluster/components/clusters-page.js "$PROJECT_PATH/node_modules/thepopebot/lib/cluster/components/clusters-page.js"
 sync_runtime_file /mnt/d/Popebot/lib/chat/components/chat.js "$PROJECT_PATH/node_modules/thepopebot/lib/chat/components/chat.js"
 sync_runtime_file /mnt/d/Popebot/lib/chat/components/ui/dropdown-menu.js "$PROJECT_PATH/node_modules/thepopebot/lib/chat/components/ui/dropdown-menu.js"
 sync_runtime_file /mnt/d/Popebot/lib/chat/components/chat-header.js "$PROJECT_PATH/node_modules/thepopebot/lib/chat/components/chat-header.js"
