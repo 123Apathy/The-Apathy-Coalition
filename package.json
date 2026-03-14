@@ -40,13 +40,16 @@
   ],
   "scripts": {
     "build": "esbuild lib/chat/components/*.jsx lib/chat/components/**/*.jsx --outdir=lib/chat/components --format=esm --jsx=automatic --outbase=lib/chat/components && esbuild lib/auth/components/*.jsx lib/auth/components/**/*.jsx --outdir=lib/auth/components --format=esm --jsx=automatic --outbase=lib/auth/components && esbuild lib/code/*.jsx --outdir=lib/code --format=esm --jsx=automatic && esbuild lib/cluster/components/*.jsx --outdir=lib/cluster/components --format=esm --jsx=automatic",
+    "bootstrap:first-run": "node scripts/bootstrap-first-run.mjs",
     "prepublishOnly": "npm run build",
     "postinstall": "node -e \"import('./bin/postinstall.js').catch(()=>{})\"",
+    "profile:detect": "node scripts/detect-model-profile.mjs",
     "db:generate": "drizzle-kit generate",
     "db:studio": "drizzle-kit studio",
     "docker:build": "node bin/docker-build.js",
     "test": "echo \"No tests yet\" && exit 0",
-    "sync": "node bin/cli.js sync"
+    "sync": "node bin/cli.js sync",
+    "update:manifest": "node scripts/prepare-update.mjs"
   },
   "keywords": [
     "ai",

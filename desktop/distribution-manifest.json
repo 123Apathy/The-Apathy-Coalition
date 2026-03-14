@@ -1,0 +1,28 @@
+{
+  "productName": "The Apathy Coalition",
+  "appId": "coalition.desktop",
+  "targets": {
+    "windows": ["msi"],
+    "macos": ["dmg"]
+  },
+  "firstRun": {
+    "script": "scripts/bootstrap-first-run.mjs",
+    "steps": [
+      "create-user-data-layout",
+      "detect-system-profile",
+      "recommend-model-bundle",
+      "seed-fresh-user-defaults"
+    ]
+  },
+  "updates": {
+    "script": "scripts/prepare-update.mjs",
+    "preservePaths": [
+      "data",
+      "memory",
+      "logs",
+      "workspaces",
+      "installer",
+      "model-performance.json"
+    ]
+  }
+}
