@@ -31,6 +31,10 @@ sync_runtime_file() {
 # Keep the live WSL runtime aligned with local source patches that are not
 # published through the installed package yet.
 sync_runtime_file /mnt/d/Popebot/lib/user-preferences.js "$PROJECT_PATH/node_modules/thepopebot/lib/user-preferences.js"
+sync_runtime_file /mnt/d/Popebot/lib/runtime/user-data.js "$PROJECT_PATH/node_modules/thepopebot/lib/runtime/user-data.js"
+sync_runtime_file /mnt/d/Popebot/lib/runtime/model-profiles.js "$PROJECT_PATH/node_modules/thepopebot/lib/runtime/model-profiles.js"
+sync_runtime_file /mnt/d/Popebot/lib/runtime/update-manifest.js "$PROJECT_PATH/node_modules/thepopebot/lib/runtime/update-manifest.js"
+sync_runtime_file /mnt/d/Popebot/lib/workspaces/backend.js "$PROJECT_PATH/node_modules/thepopebot/lib/workspaces/backend.js"
 sync_runtime_file /mnt/d/Popebot/lib/ai/index.js "$PROJECT_PATH/node_modules/thepopebot/lib/ai/index.js"
 sync_runtime_file /mnt/d/Popebot/lib/ai/router.js "$PROJECT_PATH/node_modules/thepopebot/lib/ai/router.js"
 sync_runtime_file /mnt/d/Popebot/lib/ai/model.js "$PROJECT_PATH/node_modules/thepopebot/lib/ai/model.js"
@@ -43,14 +47,18 @@ sync_runtime_file /mnt/d/Popebot/lib/chat/components/chat-header.js "$PROJECT_PA
 sync_runtime_file /mnt/d/Popebot/lib/chat/components/apathy-logo.js "$PROJECT_PATH/node_modules/thepopebot/lib/chat/components/apathy-logo.js"
 sync_runtime_file /mnt/d/Popebot/lib/chat/components/app-sidebar.js "$PROJECT_PATH/node_modules/thepopebot/lib/chat/components/app-sidebar.js"
 sync_runtime_file /mnt/d/Popebot/lib/chat/components/manual-page.js "$PROJECT_PATH/node_modules/thepopebot/lib/chat/components/manual-page.js"
+sync_runtime_file /mnt/d/Popebot/lib/chat/components/settings-layout.js "$PROJECT_PATH/node_modules/thepopebot/lib/chat/components/settings-layout.js"
+sync_runtime_file /mnt/d/Popebot/lib/chat/components/settings-system-page.js "$PROJECT_PATH/node_modules/thepopebot/lib/chat/components/settings-system-page.js"
 sync_runtime_file /mnt/d/Popebot/lib/chat/components/upgrade-dialog.js "$PROJECT_PATH/node_modules/thepopebot/lib/chat/components/upgrade-dialog.js"
 sync_runtime_file /mnt/d/Popebot/lib/chat/components/index.js "$PROJECT_PATH/node_modules/thepopebot/lib/chat/components/index.js"
+sync_runtime_file /mnt/d/Popebot/agent/app/settings/system/page.js "$PROJECT_PATH/app/settings/system/page.js"
 sync_runtime_file /mnt/d/Popebot/agent/app/chat/finalize-chat/route.js "$PROJECT_PATH/app/chat/finalize-chat/route.js"
 sync_runtime_file /mnt/d/Popebot/agent/app/login/page.js "$PROJECT_PATH/app/login/page.js"
 sync_runtime_file /mnt/d/Popebot/agent/app/components/apathy-logo.jsx "$PROJECT_PATH/app/components/apathy-logo.jsx"
 sync_runtime_file /mnt/d/Popebot/agent/app/components/login-form.jsx "$PROJECT_PATH/app/components/login-form.jsx"
 sync_runtime_file /mnt/d/Popebot/agent/app/components/setup-form.jsx "$PROJECT_PATH/app/components/setup-form.jsx"
 sync_runtime_file /mnt/d/Popebot/agent/app/icon.svg "$PROJECT_PATH/app/icon.svg"
+sync_runtime_file /mnt/d/Popebot/agent/app/settings/system/page.js "$PROJECT_PATH/app/settings/system/page.js"
 
 ensure_tmux_session() {
   local session_name="$1"
@@ -68,6 +76,11 @@ if ! pgrep -f "job-runner-server.js" >/dev/null 2>&1; then
   nohup node /mnt/d/Popebot/lib/job-runner/job-runner-server.js > .runtime/job-runner.log 2>&1 &
   sleep 2
 fi
+
+(
+  cd /mnt/d/Popebot &&
+  node scripts/bootstrap-first-run.mjs >/dev/null 2>&1 || true
+) &
 
 ensure_tmux_session \
   "apathy-app" \

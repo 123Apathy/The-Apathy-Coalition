@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { PageLayout } from './page-layout.js';
-import { ClockIcon, ZapIcon, KeyIcon, BellIcon, MessageIcon, SettingsIcon, StarIcon, SunIcon } from './icons.js';
+import { ClockIcon, ZapIcon, KeyIcon, BellIcon, MessageIcon, SettingsIcon, StarIcon, SunIcon, RunnersIcon } from './icons.js';
 
 const TABS = [
   { id: 'personalization', label: 'Personalization', href: '/settings/personalization', icon: StarIcon },
@@ -11,6 +11,7 @@ const TABS = [
   { id: 'models', label: 'Models', href: '/settings/models', icon: MessageIcon },
   { id: 'notifications', label: 'Notifications', href: '/settings/notifications', icon: BellIcon },
   { id: 'appearance', label: 'Appearance', href: '/settings/appearance', icon: SunIcon },
+  { id: 'system', label: 'System', href: '/settings/system', icon: RunnersIcon },
   { id: 'crons', label: 'Crons', href: '/settings/crons', icon: ClockIcon },
   { id: 'triggers', label: 'Triggers', href: '/settings/triggers', icon: ZapIcon },
   { id: 'secrets', label: 'Secrets', href: '/settings/secrets', icon: KeyIcon },
