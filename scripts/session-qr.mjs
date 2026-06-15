@@ -132,11 +132,13 @@ async function main() {
   const block = qr ? `${banner}\n${qr}\n${url}\n` : `${banner}\n${url}\n`;
 
   if (hookMode) {
-    // Show the QR in the live terminal; fall back to the transcript message.
-    const shown = writeToTerminal(block);
-    const systemMessage = shown
-      ? `Remote Control QR shown in terminal · ${url}`
-      : `Remote Control: ${url}\n${qr ?? ''}`;
+    // Best-effort: also draw to the native terminal where the OS allows it.
+    writeToTerminal(block);
+    // Always surface the QR in the session transcript (the "chat side") so
+    // it shows regardless of platform / how the session is being viewed.
+    const systemMessage = qr
+      ? `Remote Control — scan to view & control this session:\n\n${qr}\n${url}`
+      : `Remote Control: ${url}`;
     process.stdout.write(
       JSON.stringify({
         hookSpecificOutput: {
