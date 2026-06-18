@@ -8,9 +8,10 @@ For each open pull request, one plain-English line: what it does and its status
 (draft / ready / needs my decision). Skip this section entirely if there are no
 open PRs. Source: GitHub repo `123Apathy/The-Apathy-Coalition`.
 
-## 2. Weather — Claremont
-ONE line only. An emoji + condition (sunny / cloudy / rain), the temperature, and
-whether it'll rain. Nothing else. Example: `☀️ Sunny · 88°F · no rain`.
+## 2. Weather — Bloemfontein
+ONE line only. An emoji + condition (sunny / cloudy / rain), the temperature in °C,
+and whether it'll rain. Nothing else. Example: `☀️ Sunny · 24°C · no rain`.
+Location: Bloemfontein, South Africa.
 
 ## 3. To-do list
 The current big rocks from `DreamTeam/TODO.txt`. Bullet points, 4–6 max. Don't

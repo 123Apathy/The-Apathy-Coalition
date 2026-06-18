@@ -15,7 +15,7 @@
   },
   {
     "name": "morning-brief",
-    "schedule": "0 10 * * *",
+    "schedule": "0 8 * * *",
     "type": "agent",
     "job": "Read the file at config/MORNING_BRIEF.md and produce my 10 AM morning brief exactly as described there, then deliver it to me.",
     "enabled": true
