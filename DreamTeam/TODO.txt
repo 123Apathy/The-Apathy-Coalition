@@ -1,41 +1,30 @@
-# DreamTeam Improvement Backlog
+# DreamTeam Backlog
 
-## Required Examples (Priority)
-- Add 1-2 concrete, domain-specific examples to each expert template section.
-- Add a real "day-in-the-life" scenario per role to show how outputs are used.
-- Include at least one worked example for templates (e.g., filled Scorecard Template).
-- Add sample scripts in the Script Builder section (with variables + filled example).
+## Done (2026-06-18 rebuild — template → system)
+- Split the shared operating standard into _SYSTEM.md (read once, no longer
+  duplicated across 32 files).
+- Gave every expert a machine-readable contract (YAML frontmatter: owns,
+  excludes, inputs, outputs, kpis, depends_on, escalates_to, cadence).
+- Filled every expert with real content: purpose, role-specific principles,
+  numeric KPIs, decision gate, failure modes, a worked example, tooling, glossary.
+- Resolved overlapping roles with explicit boundaries (visual vs graphic;
+  ux-researcher vs human-behavioural-scientist vs psychologist; pricing vs
+  billing vs upsell vs analytics; legal vs risk-governance vs security).
+- Added ROSTER.md (registry + routing table) and ORCHESTRATION.md (engagement
+  loop, quorum-based conflict resolution, decision records, script library).
+- Added RUBRIC.md (per-expert + panel scoring) and scripts/validate.mjs
+  (enforces the contract; fails on placeholders or broken references).
+- Wired the memory loop to ../memory/embeddings/expert-learnings.json.
 
-## Optimization Backlog (To Push Beyond 90)
-- Replace placeholder bullets (`- `) with explicit, role-specific content.
-- Add measurable KPIs per role (numbers + timeframe).
-- Reduce redundancy across sections while keeping clarity.
-- Add a "Failure Modes" subsection with prevention steps.
-- Add a "Decision Gate" or "Stop/Go" checklist per expert.
-- Add a "Tooling & Data Sources" subsection per expert.
-- Add role-specific glossary terms at the bottom.
-- Add an example "weekly report" output for 3-5 experts.
-- Add verification steps for any claims or metrics.
-- Add a scoring rubric for evaluation of outputs.
-- Add escalation triggers for conflicts across experts.
-- Add a "first 30 days" onboarding checklist for each expert.
+## Next — earn production (90+) through real use
+- Run real engagements; replace worked examples' modeled numbers with measured
+  outcomes. (A file caps at 89 until it carries one real, dated learning.)
+- After each engagement, append a learning to expert-learnings.json so lessons
+  propagate across the panel.
+- Capture production edge cases into each expert's Failure Modes.
+- Re-validate KPIs/benchmarks quarterly against market + regulatory drift.
 
-## Notes
-- Goal: 90+ readiness for GPT project, then push to 95-100 by adding real examples and tightening outputs.
-
-## Expert Panel Feedback (Consensus)
-- Consensus rating: 78/100 today; target 95+ after examples + KPI specificity.
-- Add real, filled examples for every template section (not placeholders).
-- Add explicit owner + timeframe to each priority and output.
-- Add data sources/tooling per expert so prompts don't guess context.
-- Add decision gates and failure modes to make actions safer.
-- Add "success metrics" with numeric targets per expert.
-- Add a small script library with 3-5 real scripts.
-- Add verification steps for all metrics/claims.
-
-## 100-Point Blockers (Requires Live Validation)
-- Collect real-world user data and outcomes to replace theoretical guidance.
-- Continuously update templates to match market/regulatory drift.
-- Add execution feedback loops (post-launch learnings and retros).
-- Capture edge cases and unknowns discovered in production.
-- Integrate live operational data for higher-confidence decisions.
+## Maintenance
+- Run `node DreamTeam/scripts/validate.mjs` before committing changes to experts.
+- Quarterly: review roster boundaries; merge or split roles as the work demands.
+- Keep the routing table in ROSTER.md in sync when experts are added/removed.

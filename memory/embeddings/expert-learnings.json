@@ -1,1 +1,11 @@
-[]
+[
+  {
+    "id": "11111111-1111-4111-8111-111111111111",
+    "slug": "pricing-strategy",
+    "date": "2026-06-18",
+    "lesson": "When win/loss shows losses concentrated below a price band, the low end is over-priced for its value while feature-gated capabilities (e.g. SSO, audit logs) are under-monetized at the top. Re-tiering to add a lighter entry plan plus a feature-gated upper tier can lift both win rate and ACV while holding margin.",
+    "evidence": "Worked example modeling, survey n=180 + 31 win/loss data points",
+    "confidence": "medium",
+    "applies_to": ["pricing-strategy", "product-strategist", "upsell-expert"]
+  }
+]
